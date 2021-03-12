@@ -9,9 +9,9 @@ module.exports = function transform(arr) {
   for(let i = 0; i < arr.length; i++) {
     if (arr[i] === '--discard-next') {
       i++;
-      console.log(i);
     }
     else if (arr[i] === '--discard-prev') {
+      if(arr[i-2]!=="--discard-next")
         transformed.pop();
     }
     else if (arr[i] === '--double-next') {
@@ -20,7 +20,10 @@ module.exports = function transform(arr) {
       } 
     }
     else if (arr[i] === '--double-prev') {
-        transformed.push(transformed[transformed.length - 1]);
+        //transformed.push(transformed[transformed.length - 1]);
+        if (arr[i-2] !=='--discard-next' && (i-1)>=0){
+          transformed.push(arr[i-1])
+        }
     } else {
       transformed.push(arr[i]);
     }
